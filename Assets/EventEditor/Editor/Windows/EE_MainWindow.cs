@@ -25,15 +25,6 @@ public class EE_MainWindow : EditorWindow {
 		CreateViews();
 	}
 
-	void OnEnable() {
-		// Debug.Log("Enable Window!");
-	}
-	void OnDestroy() {
-		// Debug.Log("Destroy Window!");
-	}
-	void Update() {
-		// Debug.Log("Update Window!");
-	}
 	void OnGUI() {
 		if (propertyView == null || workView == null) {
 			CreateViews();
@@ -58,11 +49,12 @@ public class EE_MainWindow : EditorWindow {
 	}
 
 	protected void UpdateViews(Event e){
-		workView.UpdateView(position, new Rect(0f, 0f, viewPercentange, 1f), e);
+		workView.UpdateView(position, new Rect(0f, 0f, viewPercentange, 1f), e, currentGraph);
 		propertyView.UpdateView(
 			new Rect(position.width, position.y, position.width, position.height),
 			new Rect(viewPercentange, 0f, 1f - viewPercentange, 1f),
-			e
+			e,
+			currentGraph
 		);
 	}
 	#endregion

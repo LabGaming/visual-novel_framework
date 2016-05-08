@@ -8,32 +8,32 @@ using System.Collections.Generic;
 
 [Serializable]
 public class EE_NodeWorkView : EE_ViewBase {
-	#region Public Variables
-	#endregion
-
-	#region Protected Variables
-
-	#endregion
-
 	#region Constructor
-	public EE_NodeWorkView () : base("Work View") {}
+	public EE_NodeWorkView () : base("Work View") {
+		contextMenuOptions.Clear();
+		contextMenuOptions.Add("Create Graph", new GenericMenu.MenuFunction2(this.CreateGrapOptionhCallback));
+		contextMenuOptions.Add("Load Graph", new GenericMenu.MenuFunction2(this.LoadGraphOptionCallback));
+	}
 	#endregion
 
 	#region Main Methods
-	public override void UpdateView (Rect editorRect, Rect percentageRect, Event e, EE_NodeGraph currentGraph)
-	{
+	public override void UpdateView (Rect editorRect, Rect percentageRect, Event e, EE_NodeGraph currentGraph){
 		base.UpdateView(editorRect, percentageRect, e, currentGraph);
-		Debug.Log("Updating: " + viewTitle);
-	}
-
-	public override void ProcessEvents (Event e)
-	{
-		base.ProcessEvents(e);
+		if(currentGraph != null) {
+			viewTitle = currentGraph.graphName;
+		} else {
+			viewTitle = "Please Create a New Graph";
+		}
 	}
 	#endregion
 
 	#region Utility Methods
-	protected override void CreateAreaContent (){}
-	#endregion
+	void CreateGrapOptionhCallback (object obj){
+		EE_PopUpWindow.InitNodePopUp();
+	}
 
+	void LoadGraphOptionCallback (object obj){
+		EE_NodeUtils.LoadGraph();
+	}
+	#endregion
 }
