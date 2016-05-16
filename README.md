@@ -1,3 +1,5 @@
+NOTE : This README is Obsolete, i'll update it very soon.
+
 Title: Visual Novel in Unity
 
 Details: We can use the experience of creating a visual novel in order to learn about UI interface and game development in Unity, both in C# and UnityScript.
