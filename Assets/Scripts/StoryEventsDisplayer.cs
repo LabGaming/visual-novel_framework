@@ -4,16 +4,18 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class StoryEventsDisplayer : MonoBehaviour {
-	
-	public StoryEvents events;
+
+	public EE_NodeGraph EventGraph;
 	public Text eventDisplayer;
 	public GameObject optionsDisplayer;
 	public string initialEvent;
 	public GameObject prefab;
 
+	private StoryEvents events = new StoryEvents();
 	private StoryEvent currentEvent;
 
 	void Start () {
+		events.LoadStoryEvents(EventGraph);
 		displayEvent(initialEvent);
 	}
 

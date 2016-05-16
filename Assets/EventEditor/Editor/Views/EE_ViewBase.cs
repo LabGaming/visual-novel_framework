@@ -14,9 +14,7 @@ public class EE_ViewBase {
 	#endregion
 
 	#region Protected Variables
-	protected GUISkin viewSkin;
-	protected GenericMenu menu; 
-	protected static Dictionary<String,GenericMenu.MenuFunction2> contextMenuOptions = new Dictionary<String,GenericMenu.MenuFunction2>();
+	protected GenericMenu menu;
 	protected EE_NodeGraph currentGraph;
 	#endregion
 
@@ -41,7 +39,7 @@ public class EE_ViewBase {
 		// Generates view's GUI Layout
 		GUI.Box(viewRect, viewTitle);
 		GUILayout.BeginArea(viewRect);
-		CreateAreaContent();
+		CreateAreaContent(e, viewRect);
 		GUILayout.EndArea();
 
 		ProcessEvents(e);
@@ -81,16 +79,14 @@ public class EE_ViewBase {
 	}
 	protected void ProcessContextMenu(Event e) {
 		menu = new GenericMenu();
-		foreach (var option in contextMenuOptions) {
-			menu.AddItem(new GUIContent(option.Key), false, option.Value, option.Key);
-		}
+		LoadContextMenuOptions(e);
 		menu.ShowAsContext();
 		e.Use();
 	}
 	#endregion
 
 	#region Main Methods
-	protected void GetEditorSkin() {}
-	protected virtual void CreateAreaContent() {}
+	protected virtual void CreateAreaContent(Event e, Rect viewRect) {}
+	protected virtual void LoadContextMenuOptions(Event e){}
 	#endregion
 }

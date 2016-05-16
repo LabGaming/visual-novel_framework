@@ -13,16 +13,11 @@ public class EE_NodePropertyView : EE_ViewBase {
 	#endregion
 
 	#region Main Methods
-	public override void UpdateView (Rect editorRect, Rect percentageRect, Event e, EE_NodeGraph currentGraph){
-		base.UpdateView(editorRect, percentageRect, e, currentGraph);
+	protected override void CreateAreaContent (Event e, Rect viewRect)
+	{
+		if (currentGraph != null & currentGraph.selectedNode != null) {
+			currentGraph.selectedNode.DrawNodeProperties();
+		}
 	}
-
-	public override void ProcessEvents (Event e){
-		base.ProcessEvents(e);
-	}
-	#endregion
-
-	#region Utility Methods
-	protected override void CreateAreaContent (){}
 	#endregion
 }
