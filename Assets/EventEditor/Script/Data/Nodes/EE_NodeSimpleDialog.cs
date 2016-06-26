@@ -31,15 +31,12 @@ public class EE_NodeSimpleDialog : EE_NodeBase {
 	#if UNITY_EDITOR
     public override void DrawNodeProperties ()
 	{
-//		SerializedObject obj = new UnityEditor.SerializedObject(this);
-
 		GUILayout.Space(20);
 		// Title and input Field 
 		GUILayout.BeginVertical();
-			simpleDialog.name = EditorGUILayout.DelayedTextField("Dialog Name: ", simpleDialog.name);
+			simpleDialog.name = EditorGUILayout.DelayedTextField("Name:", simpleDialog.name);
 			GUILayout.Space(20);
-			simpleDialog.content = EditorGUILayout.DelayedTextField("Dialog Content: ", simpleDialog.content);
-//			EditorGUILayout.PropertyField(obj.FindProperty("simpleDialog"), simpleDialog.name, true); 
+			simpleDialog.content = EditorGUILayout.DelayedTextField("Content:", simpleDialog.content);
 		GUILayout.EndVertical();
 		GUILayout.Space(20);
 	}

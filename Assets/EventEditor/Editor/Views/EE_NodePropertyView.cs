@@ -13,9 +13,8 @@ public class EE_NodePropertyView : EE_ViewBase {
 	#endregion
 
 	#region Main Methods
-	protected override void CreateAreaContent (Event e, Rect viewRect)
-	{
-		if (currentGraph != null & currentGraph.selectedNode != null) {
+	protected override void CreateAreaContent (Event e, Rect viewRect){
+		if (currentGraph != null && currentGraph.selectedNode != null) {
 			currentGraph.selectedNode.DrawNodeProperties();
 		}
 	}
