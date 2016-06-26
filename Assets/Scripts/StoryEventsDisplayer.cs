@@ -20,8 +20,10 @@ public class StoryEventsDisplayer : MonoBehaviour {
 	#region Display Methods
 	public void displayEvent (string eventName) {
 		currentEvent = events.getEvent(eventName);
+		Debug.Log(eventDisplayer.text);
+		Debug.Log(currentEvent.content);
 		eventDisplayer.text = currentEvent.content;
-		displayOptionsForCurrentEvent();
+//		displayOptionsForCurrentEvent();
 	}
 
 	private void displayOptionsForCurrentEvent () {

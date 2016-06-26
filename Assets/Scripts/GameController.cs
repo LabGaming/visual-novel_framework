@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void Quit () {
-		// TODO : DO IT RIGHT!!!
 		Application.Quit();
 	}
 }
