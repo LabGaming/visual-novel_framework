@@ -17,6 +17,15 @@ public static class EE_NodeUtils {
 		LoadGraphToMainWindow(currentGraph);
 	}
 
+	public static void AddOptionToNode (string name, string content, EE_NodeSimpleDialog nodeToModify) {
+		// Create EE_NodeGraph
+		nodeToModify.simpleDialog.Options.Add(new Option(name, content, null));
+		nodeToModify.outputs.Add(new EE_NodeBase.EE_NodeOutput());
+		// Save EE_NodeGraph to the AssetsDatabase
+		AssetDatabase.SaveAssets();
+		AssetDatabase.Refresh();
+	}
+
 	public static void LoadGraph () {
 		string graphPath = EditorUtility.OpenFilePanel("Load Graph",  Application.dataPath + "/EventEditor/Database/", "");
 		graphPath = graphPath.Substring(Application.dataPath.Length - 6);
@@ -57,6 +66,8 @@ public static class EE_NodeUtils {
 
 	public static void DeleteNode(EE_NodeBase node) {
 		EE_NodeGraph currentGraph = GetGraphToMainWindow();
+		node.input.inputNode.outputs[node.input.inputOption].isOccupied = false;
+		node.input.inputNode.outputs[node.input.inputOption].outputNode = null;
 		currentGraph.nodes.Remove(node);
 		GameObject.DestroyImmediate(node, true);
 		AssetDatabase.Refresh();

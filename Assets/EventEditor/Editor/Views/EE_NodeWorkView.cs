@@ -27,7 +27,7 @@ public class EE_NodeWorkView : EE_ViewBase {
 	}
 
 	protected override void LoadContextMenuOptions(Event e) {
-		menu.AddItem(new GUIContent("Create Graph"), false, this.CreateGrapOptionhCallback, e);
+		menu.AddItem(new GUIContent("Create Graph"), false, this.CreateGraphOptionCallback, e);
 		menu.AddItem(new GUIContent("Load Graph"), false, this.LoadGraphOptionCallback, e);
 		if(currentGraph != null){
 			menu.AddSeparator("");
@@ -36,7 +36,13 @@ public class EE_NodeWorkView : EE_ViewBase {
 				if(node.nodeRect.Contains(e.mousePosition)) {
 					menu.AddSeparator("");
 					menu.AddItem(
-						new GUIContent("Delete Event Node: " + node.nodeName), 
+						new GUIContent("Add Event Option To " + node.nodeName), 
+						false, 
+						this.AddEventOptionToOptionCallback, 
+						(object) node
+					);
+					menu.AddItem(
+						new GUIContent("Delete Event Node " + node.nodeName), 
 						false, 
 						this.DeleteEventNodeOptionCallback, 
 						(object) node
@@ -56,8 +62,8 @@ public class EE_NodeWorkView : EE_ViewBase {
 	#endregion
 
 	#region Utility Methods
-	void CreateGrapOptionhCallback (object e){
-		EE_PopUpWindow.InitNodePopUp();
+	void CreateGraphOptionCallback (object e){
+		EE_PopUpWindow.InitNodePopUp(PopUpType.CreateNode);
 	}
 
 	void LoadGraphOptionCallback (object e){
@@ -68,6 +74,10 @@ public class EE_NodeWorkView : EE_ViewBase {
 			NodeType.SimpleDialog,
 			((Event) e).mousePosition
 		);
+	}
+	void AddEventOptionToOptionCallback (object e) {
+		EE_NodeSimpleDialog nodeToAddOption = (EE_NodeSimpleDialog) e;
+		EE_PopUpWindow.InitNodePopUp(PopUpType.AddOption, nodeToAddOption);
 	}
 	void DeleteEventNodeOptionCallback (object e) {
 		EE_NodeBase nodeToDelete = (EE_NodeBase) e;

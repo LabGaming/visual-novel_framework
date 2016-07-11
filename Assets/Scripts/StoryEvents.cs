@@ -25,6 +25,8 @@ public class Option : System.Object {
 public class StoryEvent : System.Object {
 	public string name;
 	public string content;
+	public string actorName;
+	public MovieTexture background; 
 	public List<Option> Options = new List<Option>();
 }
 

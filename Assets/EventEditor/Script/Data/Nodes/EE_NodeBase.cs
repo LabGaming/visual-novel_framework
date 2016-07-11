@@ -4,6 +4,7 @@ using UnityEditor;
 #endif
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 [Serializable]
 public class EE_NodeBase : ScriptableObject {
@@ -14,13 +15,13 @@ public class EE_NodeBase : ScriptableObject {
 	public NodeType nodeType;
 	public bool isSelected = false;
 	public EE_NodeInput input;
-	public EE_NodeOutput output;
+	public List<EE_NodeOutput> outputs;
 	#endregion
 
 	#region Constructor
 	public EE_NodeBase() {
 		input = new EE_NodeInput();
-		output = new EE_NodeOutput();
+		outputs = new List<EE_NodeOutput>();
 	}
 	#endregion
 
@@ -28,6 +29,7 @@ public class EE_NodeBase : ScriptableObject {
 	[Serializable]
 	public class EE_NodeInput {
 		public bool isOccupied = false;
+		public int inputOption;
 		public EE_NodeBase inputNode;
 	}
 
@@ -47,24 +49,26 @@ public class EE_NodeBase : ScriptableObject {
 		ProcessEvents(e,viewRect);
 		GUI.Box(nodeRect,nodeName);
 		DrawConnectionToInputNode();
-
 		EditorUtility.SetDirty(this);
 	}
 	#endif
 	#endregion
 
 	#region Utility Methods
-	public void DrawConnectionToMouse(Vector2 mousePos) {
-		Vector2 startPos = new Vector2(nodeRect.x + nodeRect.width*1.15f, nodeRect.y + nodeRect.height / 2);
+	public void DrawConnectionToMouse(Vector2 mousePos, int optionToConnect) {
+		Vector2 startPos = new Vector2(nodeRect.x + nodeRect.width*1.15f, nodeRect.y + (nodeRect.height + (optionToConnect) * nodeRect.height * 0.5f) / 2);
 		DrawConnection(startPos, mousePos);	
     }
 
 	public void DrawConnectionToInputNode() {
-		if (output.isOccupied) {
-			Rect outNodeRect = output.outputNode.nodeRect;
-			Vector2 startPos = new Vector2(nodeRect.x + nodeRect.width*1.15f, nodeRect.y + nodeRect.height / 2);
-			Vector2 endPos = new Vector2(outNodeRect.x - outNodeRect.width*0.15f, outNodeRect.y + outNodeRect.height / 2);
-			DrawConnection(startPos, endPos);	
+		for (int i = 0; i < outputs.Count; i++) {
+			
+			if (outputs[i].isOccupied) {
+				Rect outNodeRect = outputs[i].outputNode.nodeRect;
+				Vector2 startPos = new Vector2(nodeRect.x + nodeRect.width*1.15f, nodeRect.y + (nodeRect.height + (i) * nodeRect.height * 0.5f) / 2);
+				Vector2 endPos = new Vector2(outNodeRect.x - outNodeRect.width*0.15f, outNodeRect.y + outNodeRect.height / 2);
+				DrawConnection(startPos, endPos);	
+			}
 		}
     }
 

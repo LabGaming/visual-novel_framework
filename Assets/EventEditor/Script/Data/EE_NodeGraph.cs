@@ -13,6 +13,7 @@ public class EE_NodeGraph : ScriptableObject {
 	public List<EE_NodeBase> nodes;
 	public EE_NodeBase selectedNode;
 	public EE_NodeBase nodeToConnect;
+	public int optionToConnect;
 	#endregion
 
 	#region Main Methods
@@ -39,7 +40,7 @@ public class EE_NodeGraph : ScriptableObject {
 			}
 
 			if (nodeToConnect != null) {
-				nodeToConnect.DrawConnectionToMouse(e.mousePosition);
+				nodeToConnect.DrawConnectionToMouse(e.mousePosition, optionToConnect);
 			}
 		}
 		EditorUtility.SetDirty(this);
