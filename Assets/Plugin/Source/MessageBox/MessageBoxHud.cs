@@ -17,9 +17,6 @@ public class MessageBoxHud : MonoBehaviour
     private int _dialogId;
     private DialogManager _dialogManager;
 
-    private float _initialHeight = 170;
-
-
     public void Construct(int dialogId, DialogManager dialogManager)
     {
         _dialogId = dialogId;
@@ -41,7 +38,6 @@ public class MessageBoxHud : MonoBehaviour
 
     public void SetData(BaseDialogNode dialogNode)
     {
-        ResetMessageBox();
         if(dialogNode == null)
             DialogComplete();
         else if(dialogNode is DialogStartNode)
@@ -52,14 +48,6 @@ public class MessageBoxHud : MonoBehaviour
             SetAsMultiOptionsNode((DialogMultiOptionsNode) dialogNode);
         else
             Debug.LogError("Wrong Dialog type Sent Here");
-    }
-
-    private void ResetMessageBox()
-    {
-        Vector2 size = GetComponent<RectTransform>().sizeDelta;
-        size.y = _initialHeight;
-        GetComponent<RectTransform>().sizeDelta = size;
-        _optionsHolder.ClearList();
     }
 
     private void DialogComplete()
