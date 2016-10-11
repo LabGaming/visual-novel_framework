@@ -22,7 +22,7 @@ public class DialogMultiOptionsNode : BaseDialogNode
     {
         DialogMultiOptionsNode node = CreateInstance<DialogMultiOptionsNode>();
 
-        node.rect = new Rect(pos.x, pos.y, 300, 265);
+		node.rect = new Rect(pos.x, pos.y, 300, 350);
         node.name = "Dailog with Options Node";
 
         //Previous Node Connections
@@ -33,7 +33,8 @@ public class DialogMultiOptionsNode : BaseDialogNode
         //node.CreateOutput("Next Node", "DialogForward", NodeSide.Right, 30);
 
         node.SayingCharacterName = "Morgen Freeman";
-        node.WhatTheCharacterSays = "I'm GOD";
+		node.WhatTheCharacterSays = "I'm GOD";
+		node.SayingBackground = null;
         node.SayingCharacterPotrait = null;
 
         node._options = new List<DataHolderForOption>();
@@ -57,7 +58,13 @@ public class DialogMultiOptionsNode : BaseDialogNode
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
 
-        SayingCharacterPotrait = EditorGUILayout.ObjectField("Character Potrait", SayingCharacterPotrait,
+        SayingCharacterPotrait = EditorGUILayout.ObjectField("Potrait", SayingCharacterPotrait,
+			typeof(Sprite), false) as Sprite;
+
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+              
+		SayingBackground = EditorGUILayout.ObjectField("Background", SayingBackground,
             typeof(Sprite), false) as Sprite;
 
         GUILayout.EndHorizontal();

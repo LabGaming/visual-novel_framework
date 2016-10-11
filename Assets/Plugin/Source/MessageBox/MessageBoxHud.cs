@@ -4,7 +4,9 @@ using UnityEngine.UI;
 public class MessageBoxHud : MonoBehaviour
 {
     [SerializeField]
-    private ButtonTextHandler _okButton;
+	private ButtonTextHandler _okButton;
+    [SerializeField]
+    private Image _background;
     [SerializeField]
     private Image _characterPortrait;
     [SerializeField]
@@ -37,17 +39,14 @@ public class MessageBoxHud : MonoBehaviour
     }
 
     public void SetData(BaseDialogNode dialogNode)
-    {
-        if(dialogNode == null)
+	{
+        if (dialogNode == null) {
             DialogComplete();
-        else if(dialogNode is DialogStartNode)
-            SetAsDialogStartNode((DialogStartNode) dialogNode);
-        else if(dialogNode is DialogNode)
-            SetAsDialogNode((DialogNode) dialogNode);
-        else if(dialogNode is DialogMultiOptionsNode)
-            SetAsMultiOptionsNode((DialogMultiOptionsNode) dialogNode);
-        else
-            Debug.LogError("Wrong Dialog type Sent Here");
+        } else {
+			SetAsBaseDialogNode(dialogNode);
+			if (dialogNode is DialogMultiOptionsNode)
+				SetAsMultiOptionsNode((DialogMultiOptionsNode) dialogNode);
+		}
     }
 
     private void DialogComplete()
@@ -56,44 +55,22 @@ public class MessageBoxHud : MonoBehaviour
         DestroyObject(gameObject);
     }
 
-    private void SetAsDialogNode(DialogNode dialogNode)
+    private void SetAsBaseDialogNode(BaseDialogNode dialogNode)
     {
         _okButton.ShowButton(true);
         _okButton.SetText(dialogNode.IsNextAvailable() ? EButtonText.NEXT : EButtonText.OKAY);
 
+		_background.sprite = dialogNode.SayingBackground;
         _characterPortrait.sprite = dialogNode.SayingCharacterPotrait;
         _characterName.text = dialogNode.SayingCharacterName;
         _sayingText.text = dialogNode.WhatTheCharacterSays;
-    }
-
-    private void SetAsDialogStartNode(DialogStartNode dialogStartNode)
-    {
-        _okButton.ShowButton(true);
-        _okButton.SetText(dialogStartNode.IsNextAvailable() ? EButtonText.NEXT : EButtonText.OKAY);
-
-        _characterPortrait.sprite = dialogStartNode.SayingCharacterPotrait;
-        _characterName.text = dialogStartNode.SayingCharacterName;
-        _sayingText.text = dialogStartNode.WhatTheCharacterSays;
     }
 
 
     private void SetAsMultiOptionsNode(DialogMultiOptionsNode dialogNode)
     {
         _okButton.ShowButton(false);
-
-        _characterPortrait.sprite = dialogNode.SayingCharacterPotrait;
-        _characterName.text = dialogNode.SayingCharacterName;
-        _sayingText.text = dialogNode.WhatTheCharacterSays;
-
         _optionsHolder.CreateOptions(dialogNode.GetAllOptions(), OptionSelected);
-        GrowMessageBox(dialogNode.GetAllOptions().Count);
-    }
-
-    private void GrowMessageBox(int count)
-    {
-        Vector2 size = GetComponent<RectTransform>().sizeDelta;
-        size.y += (count * _optionsHolder.CellHeight());
-        GetComponent<RectTransform>().sizeDelta = size;
     }
 
     private void OptionSelected(int optionSelected)

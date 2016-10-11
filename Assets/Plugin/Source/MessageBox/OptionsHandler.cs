@@ -25,7 +25,8 @@ public class OptionsHandler : MonoBehaviour
     }
 
     void ButtonCallBack(int value)
-    {
+	{
+		this.ClearList();
         _callback(value);
     }
 

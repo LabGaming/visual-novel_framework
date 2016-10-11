@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using NodeEditorFramework;
 using UnityEngine;
 
@@ -9,7 +8,8 @@ public abstract class BaseDialogNode : Node
     public override bool AllowRecursion { get { return true; } }
     public abstract Type GetObjectType { get; }
 
-    public string SayingCharacterName;
+	public string SayingCharacterName;
+    public Sprite SayingBackground;
     public Sprite SayingCharacterPotrait;
     public string WhatTheCharacterSays;
 

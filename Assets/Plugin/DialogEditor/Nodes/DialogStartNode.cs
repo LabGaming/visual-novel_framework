@@ -16,14 +16,15 @@ public class DialogStartNode : BaseDialogNode
     {
         DialogStartNode node = CreateInstance<DialogStartNode>();
 
-        node.rect = new Rect(pos.x, pos.y, 300, 230);
+		node.rect = new Rect(pos.x, pos.y, 300, 350);
         node.name = "Dailog Start Node";
 
         node.CreateOutput("Next Node", "DialogForward", NodeSide.Right, 30);
         node.CreateInput("Return Here", "DialogBack", NodeSide.Right, 50);
 
         node.SayingCharacterName = "Morgen Freeman";
-        node.WhatTheCharacterSays = "I'm GOD";
+		node.WhatTheCharacterSays = "I'm GOD";
+		node.SayingBackground = null;
         node.SayingCharacterPotrait = null;
 
         return node;
@@ -49,8 +50,15 @@ public class DialogStartNode : BaseDialogNode
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
 
-        SayingCharacterPotrait = EditorGUILayout.ObjectField("Character Potrait", SayingCharacterPotrait,
+        SayingCharacterPotrait = EditorGUILayout.ObjectField("Potrait", SayingCharacterPotrait,
+			typeof(Sprite), false) as Sprite;
+
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+
+		SayingBackground = EditorGUILayout.ObjectField("Background", SayingBackground,
             typeof(Sprite), false) as Sprite;
+
 
         GUILayout.EndHorizontal();
     }
