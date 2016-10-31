@@ -19,6 +19,6 @@ public class ButtonTextHandler : MonoBehaviour
 
 public enum EButtonText
 {
-    OKAY,
+    END,
     NEXT,
 }

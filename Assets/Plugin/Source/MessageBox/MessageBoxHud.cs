@@ -23,7 +23,7 @@ public class MessageBoxHud : MonoBehaviour
     {
         _dialogId = dialogId;
         _dialogManager = dialogManager;
-        _okButton.SetText(EButtonText.OKAY);
+        _okButton.SetText(EButtonText.END);
     }
 
     //coming form button
@@ -58,7 +58,7 @@ public class MessageBoxHud : MonoBehaviour
     private void SetAsBaseDialogNode(BaseDialogNode dialogNode)
     {
         _okButton.ShowButton(true);
-        _okButton.SetText(dialogNode.IsNextAvailable() ? EButtonText.NEXT : EButtonText.OKAY);
+        _okButton.SetText(dialogNode.IsNextAvailable() ? EButtonText.NEXT : EButtonText.END);
 
 		_background.sprite = dialogNode.SayingBackground;
         _characterPortrait.sprite = dialogNode.SayingCharacterPotrait;
