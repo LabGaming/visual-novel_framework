@@ -92,12 +92,12 @@ public class DialogMultiOptionsNode : BaseDialogNode
 	private void DrawOptions()
 	{
 		EditorGUILayout.BeginVertical();
-		foreach (var option in _options) {
+		foreach (var option in _options.ToList()) {
 			GUILayout.BeginVertical();
 			GUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField(Outputs.FindIndex(option.NodeOutput) + ".", GUILayout.MaxWidth(15));
+			EditorGUILayout.LabelField(Outputs.IndexOf(option.NodeOutput) + ".", GUILayout.MaxWidth(15));
 			option.OptionDisplay = EditorGUILayout.TextArea(option.OptionDisplay, GUILayout.MinWidth(80));
-			OutputKnob (Outputs.FindIndex(option.NodeOutput));
+			OutputKnob (Outputs.IndexOf(option.NodeOutput));
 			if (GUILayout.Button("‒", GUILayout.Width(20)))
 			{
 				_options.Remove(option);
