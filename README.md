@@ -14,3 +14,5 @@ TODO :
 - Merge WireFrame to master, there it has all the actual code that contains the new ui + Node Editor + the example present here : 
 https://github.com/Baste-RainGames/Node_Editor/tree/Examples/Dialogue-System/
 - A lot more, suggestions are welcome.
+
+Made as part of Globant's Labs https://www.globant.com/.
